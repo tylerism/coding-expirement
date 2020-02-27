@@ -49,7 +49,7 @@ jobs:
       - gcp-gke/rollout-image:
           deployment: coding-experiment-cluster-1
           container: dominic-backend
-          image: gcr.io/circle-ci-demo/circle-gke:v2 # change version when updating
+          image: gcr.io/api-project-264252978677/circle-gke:v2 # change version when updating
 workflows:
   build_update_deploy:
     jobs:
