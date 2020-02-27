@@ -32,10 +32,10 @@ jobs:
       - gcr/gcr-auth
       - gcr/build-image:
           image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          tag: "v100" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
           image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          tag: "v100" #Change version number e.g to 'v3' when updating application
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
@@ -48,7 +48,7 @@ jobs:
       # Update a deployment Docker image.
       - gcp-gke/rollout-image:
           deployment: coding-experiment-cluster-1
-          container: dominic-backend
+          container: circleci-gke
           image: gcr.io/api-project-264252978677/circle-gke:v2 # change version when updating
 workflows:
   build_update_deploy:
