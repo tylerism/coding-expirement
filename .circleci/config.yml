@@ -36,7 +36,7 @@ jobs:
       - gcr/push-image:
           image: circleci-gke
           tag: "v1234567" #Change version number e.g to 'v3' when updating application
-    
+
   deploy:
     description: Deploy application to Google Kubernetes Engine
     machine: true
@@ -62,6 +62,14 @@ workflows:
       - Build-Push-Image-Docker:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - master
       - deploy:
           requires:
             - Build-Push-Image-Docker
+          filters:
+            branches:
+              ignore:
+                - master
