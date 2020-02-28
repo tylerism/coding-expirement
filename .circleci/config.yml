@@ -47,7 +47,8 @@ jobs:
       - gcp-gke/init
       # Update a deployment Docker image.
       - gcp-gke/rollout-image:
-          deployment: coding-experiment-cluster-1
+          deployment: production-circle-demo
+          cluster: coding-experiment-cluster-1
           container: circleci-gke
           image: gcr.io/api-project-264252978677/circleci-gke:v123 # change version when updating
 workflows:
