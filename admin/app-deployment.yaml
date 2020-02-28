@@ -18,8 +18,8 @@ spec:
         tier: backend
     spec:
       containers:
-        - image: gcr.io/api-project-264252978677/circleci-gke:v123
-          name: rusty-pangolin
+        - image: gcr.io/api-project-264252978677/circleci-gke:v1234
+          name: circleci-gke
           ports:
             - containerPort: 8030
               name: ci-deploy
