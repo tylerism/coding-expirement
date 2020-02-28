@@ -32,10 +32,10 @@ jobs:
       - gcr/gcr-auth
       - gcr/build-image:
           image: circleci-gke
-          tag: "v12345" #Change version number e.g to 'v3' when updating application
+          tag: "v123456" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
           image: circleci-gke
-          tag: "v12345" #Change version number e.g to 'v3' when updating application
+          tag: "v123456" #Change version number e.g to 'v3' when updating application
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
@@ -54,7 +54,7 @@ jobs:
           cluster: coding-experiment-cluster-1
           container: circleci-gke
           image: gcr.io/api-project-264252978677/circleci-gke # change version when updating
-          tag: V12345
+          tag: v123456
 workflows:
   build_update_deploy:
     jobs:

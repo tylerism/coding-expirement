@@ -18,7 +18,7 @@ spec:
         tier: backend
     spec:
       containers:
-        - image: gcr.io/api-project-264252978677/circleci-gke:v1234
+        - image: gcr.io/api-project-264252978677/circleci-gke:v12345
           name: circleci-gke
           ports:
             - containerPort: 8030
