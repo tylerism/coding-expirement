@@ -3,6 +3,7 @@ orbs:
   node: circleci/node@1.1.6
   gcp-gke: circleci/gcp-gke@1.0.3
   gcr: circleci/gcp-gcr@0.6.1
+  gcp-deploy: rigup/gcp-deploy@dev:latest
 jobs:
   build:
     description: Install npm
@@ -59,6 +60,11 @@ workflows:
   build_update_deploy:
     jobs:
       - build
+      - gcp-deploy/create-version:
+          requires:
+            - gcp-deploy/test-node
+          context: PRODUCTION_SECRETS
+          release: true
       - Build-Push-Image-Docker:
           requires:
             - build
