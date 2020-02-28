@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-  gcp-gke: circleci/gcp-gke@1.0.3
+  gke: circleci/gcp-gke@1.0.3
   gcr: circleci/gcp-gcr@0.6.1
 jobs:
   build:
@@ -42,11 +42,11 @@ jobs:
     machine: true
     steps:
       # Install `gcloud` and `kubectl` if not already installed.
-      - gcp-gke/install
+      - gke/install
       # Initialize the `gcloud` CLI.
-      - gcp-gke/init
+      - gke/initialize
       # Update a deployment Docker image.
-      - gcp-gke/rollout-image:
+      - gke/rollout-image:
           deployment: production-circle-demo
           cluster: coding-experiment-cluster-1
           container: circleci-gke
