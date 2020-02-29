@@ -28,7 +28,6 @@ jobs:
     description: Create version
     machine: true
     steps:
-      - init-node
       - run: echo "export GH_TOKEN=$GITHUB_ACCESS_TOKEN" >> $BASH_ENV
       - run: npm run release
       - run: echo "export RELEASE_VERSION=$(node -p 'require("./package").version')"
