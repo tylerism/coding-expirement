@@ -3,7 +3,6 @@ orbs:
   node: circleci/node@1.1.6
   gcp-gke: circleci/gcp-gke@1.0.3
   gcr: circleci/gcp-gcr@0.6.1
-  gcp-deploy: rigup/gcp-deploy@dev:latest
 jobs:
   build:
     description: Install npm
@@ -25,6 +24,16 @@ jobs:
           cache-key: package.json
           # Ignore non-checksum cache hits
           use-strict-cache: true
+  create-version:
+    description: Create version
+    machine: true
+    steps:
+      - attach-workspace
+      - init-node
+      - run: echo "export GH_TOKEN=$GITHUB_ACCESS_TOKEN" >> $BASH_ENV
+      - run: npm run release
+      - run: echo "export RELEASE_VERSION=$(node -p 'require("./package").version')"
+      - run: cat $BASH_ENV
   Build-Push-Image-Docker:
     description: Build and push image to Google Container Registry
     machine: true
@@ -33,10 +42,10 @@ jobs:
       - gcr/gcr-auth
       - gcr/build-image:
           image: circleci-gke
-          tag: "v1234567" #Change version number e.g to 'v3' when updating application
+          tag: "v12345678" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
           image: circleci-gke
-          tag: "v1234567" #Change version number e.g to 'v3' when updating application
+          tag: "v12345678" #Change version number e.g to 'v3' when updating application
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
@@ -55,16 +64,12 @@ jobs:
           cluster: coding-experiment-cluster-1
           container: circleci-gke
           image: gcr.io/api-project-264252978677/circleci-gke # change version when updating
-          tag: v1234567
+          tag: v12345678
 workflows:
   build_update_deploy:
     jobs:
       - build
-      - gcp-deploy/create-version:
-          requires:
-            - gcp-deploy/test-node
-          context: PRODUCTION_SECRETS
-          release: true
+      - create-version
       - Build-Push-Image-Docker:
           requires:
             - build
